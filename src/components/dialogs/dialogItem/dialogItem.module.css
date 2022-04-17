@@ -1,0 +1,11 @@
+.picture{
+    width: 35px;
+    height: 35px;
+    background-color: blue;
+    border-radius: 50%;
+    display: inline-block;
+}
+.fone{
+    display: inline-block;
+    margin: 10px;
+}

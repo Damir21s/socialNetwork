@@ -1,0 +1,13 @@
+.photo{
+   height: 100px;
+   width: 100px;
+}
+.countPage{
+   font-weight: bold;
+}
+.ant-pagination{
+   display: flex;
+}
+li{
+   list-style-type: none;
+}

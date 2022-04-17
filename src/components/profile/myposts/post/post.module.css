@@ -1,0 +1,14 @@
+.post{
+    margin-top: 20px; 
+}
+.fone{
+    width: 35px;
+    height: 35px;
+    background-color: blue;
+    border-radius: 50%;
+    display: inline-block;
+}
+.messages{
+    margin-left: 10px;
+    display: inline-block;
+}

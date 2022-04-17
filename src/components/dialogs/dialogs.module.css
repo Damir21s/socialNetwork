@@ -1,0 +1,15 @@
+.Dialogs{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    padding: 20px;
+    
+}
+.active{
+    color: gold;
+}
+.textarea{
+    width: 400px;
+}
+.buttonSend{
+    margin-left: 20px;
+}
