@@ -5,9 +5,9 @@ import MyPostContainer from './myposts/mypostContainer'
 type PropsType = {
   profile: profileType | null,
   status: string,
-  savePhoto: (e: string) => void,
+  savePhoto: () => void,
   isOwner: boolean,
-  error: any,
+  error: string | null,
   saveProfile: ()=> void,
   getUpdateStatus: ()=>void, 
 }

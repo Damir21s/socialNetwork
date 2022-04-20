@@ -1,10 +1,11 @@
+import { PathMatch } from 'react-router-dom';
 import { ThunkAction } from 'redux-thunk';
 import usersApi, { ResultCodeEnum, ResultCodeForCaptchaEnum } from "../components/api/api";
 import { AppReducerType, InferActionsTypes } from './redux-store';
 
 export type initialStateType = typeof initialState
 let initialState = {
-    id: null as number | null,
+    id: null as PathMatch<"userId"> | null,
     login: null as string | null,
     email: null as string | null,
     isAuth: null as boolean | null,
@@ -25,10 +26,10 @@ const AuthReducer = (state = initialState, action: ActionsType): initialStateTyp
 }
 type ActionsType = InferActionsTypes<typeof actions>
 type setAuthUserDataPayloadType = {
-    id?: number | null,
-    login?: string | null,
-    email?: string | null,
-    isAuth?: boolean
+    id: PathMatch<"userId"> | null,
+    login: string | null,
+    email: string | null,
+    isAuth: boolean
 }
 export const actions = {
     setAuthUserData: (

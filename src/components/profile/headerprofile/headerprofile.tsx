@@ -1,16 +1,16 @@
-import React from 'react';
-import Preloader from '../../common/preloader/preloader';
-import s from './headerprofile.module.css';
-import noAvatarPicture from "./../../../assets/no-avatar.png";
-import LocalStateStatusProfile from './stateHeaderProfile';
-import AboutMeForm from './aboutMeForm';
-import { profileType } from '../../../types/types';
+import React, { ChangeEvent } from 'react'
+import Preloader from '../../common/preloader/preloader'
+import s from './headerprofile.module.css'
+import noAvatarPicture from "./../../../assets/no-avatar.png"
+import LocalStateStatusProfile from './stateHeaderProfile'
+import AboutMeForm from './aboutMeForm'
+import { profileType } from '../../../types/types'
 type PropsType ={
   profile: profileType | null,
   status: string,
-  savePhoto: (e: string) => void,
+  savePhoto: (file: File) => void,
   isOwner: boolean,
-  error: any,
+  error: string | null,
   saveProfile: ()=> void,
   getUpdateStatus: ()=>void,
 }
@@ -18,8 +18,8 @@ const HeaderProfile: React.FC<PropsType> = ({profile, status, savePhoto, isOwner
   if (!profile) {
     return <Preloader />
   }
-  let onMainPhotoSelected = (e: any) => {
-    if (e.target.files.length) {
+  let onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length) {
       savePhoto(e.target.files[0])
     }
   }

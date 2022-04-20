@@ -58,10 +58,10 @@ const usersApi = {
     async logout() {
         return instance.delete<ResponseType<DataLoginType>>('auth/login').then(response => response.data)
     },
-    async getUserProfile(userId: number) {
+    async getUserProfile(userId?: string ) {
         return instance.get<profileType>(`/profile/${userId}`).then(response => response.data)
     },
-    async getUserStatus(userId: number) {
+    async getUserStatus(userId?: string) {
         return instance.get(`/profile/status/${userId}`).then(response => response.data)
     },
     async getUpdateStatus(status: string) {

@@ -1,14 +1,7 @@
+import { dialogsDataType, messagesData } from "../types/types"
 import { InferActionsTypes } from "./redux-store"
 
 export type initialStateType = typeof initialState
-type dialogsDataType = {
-    id: number,
-    name: string
-}
-type messagesData = {
-    id: number,
-    messages: string
-}
 let initialState = {
     DialogsData: [
         { id: 1, name: "Petr" },

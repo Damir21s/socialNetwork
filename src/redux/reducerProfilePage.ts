@@ -1,5 +1,5 @@
+import { PathMatch } from 'react-router-dom';
 import { ThunkAction } from 'redux-thunk';
-import { string } from 'yup';
 import usersApi from "../components/api/api";
 import { photosType, postsDataType, profileType } from '../types/types';
 import { AppReducerType, InferActionsTypes } from './redux-store';
@@ -69,13 +69,13 @@ export const actions = {
      errorSaveProfile: (error: any) => ({ type: 'ERROR-SAVE-PROFILE', error }) as const
 }
 type ThunkType = ThunkAction<void, AppReducerType, unknown, ActionsType>
-export let getUsersProfile = (match: any): ThunkType =>
+export let getUsersProfile = (match: PathMatch<"userId"> | null): ThunkType =>
  async (dispatch) => {
     let userId = match ? match.params.userId : '22386';
     let data = await usersApi.getUserProfile(userId)
     dispatch(actions.setUserProfile(data))
 }
-export let getStatus = (match: any): ThunkType =>
+export let getStatus = (match: PathMatch<"userId"> | null): ThunkType =>
  async (dispatch) => {
     let userId = match ? match.params.userId : '22386';
     let data = await usersApi.getUserStatus(userId)

@@ -1,28 +1,45 @@
 import React from 'react';
-import {useFormik} from "formik"
+import {FormikProps, useFormik} from "formik"
 import { useState } from "react";
-
-let AboutMeForm = (props) => {
+import { profileType } from '../../../types/types';
+type PropsType = {
+    profile: profileType
+    saveProfile: (values: FormikValues)=> void
+    error: string | null
+}
+type contactsType = {
+    vk: string
+    facebook: string
+    instagram: string
+}
+type FormikValues = {
+    FullName: string
+    AboutMe: string
+    LookingForAJob: boolean
+    LookingForAJobDescription: string
+    contacts: contactsType | any
+}
+let AboutMeForm: React.FC<PropsType>= ({profile, saveProfile, error}) => {
     let [edit, setEdit] = useState(false)
-    const formik = useFormik({
+    const formik: FormikProps<FormikValues> = useFormik<FormikValues>({
         initialValues: {
-            FullName: props.profile.fullName,
-            AboutMe: props.profile.aboutMe,
-            LookingForAJob: props.profile.lookingForAJob,
-            LookingForAJobDescription: props.profile.lookingForAJobDescription,
+            FullName: profile.fullName,
+            AboutMe: profile.aboutMe,
+            LookingForAJob: profile.lookingForAJob,
+            LookingForAJobDescription: profile.lookingForAJobDescription,
             contacts: [
-                {vk: props.profile.contacts.vk},
-                {facebook: props.profile.contacts.facebook},
-                {instagram: props.profile.contacts.instagram}
+                {vk: profile.contacts.vk},
+                {facebook: profile.contacts.facebook},
+                {instagram: profile.contacts.instagram}
             ]
         },
         onSubmit: (values) => {
-            props.saveProfile(values)
+            saveProfile(values)
             setEdits()
         },
     });
     let setEdits = () => {
-        if (props.error != null) {
+        if (error != null) {
             setEdit(true)
         }
         else{
@@ -32,7 +49,7 @@ let AboutMeForm = (props) => {
     return (
         <div>
             {!edit && <button onClick={() => { setEdit(!edit) }}>Edit About Me</button>}
-            {props.error != null ? <div>{props.error}</div> : <></>}
+            {error != null ? <div>{error}</div> : <></>}
             {edit &&
                 <form onSubmit={formik.handleSubmit}>
                     <div><button type="submit">Save</button></div>
@@ -94,15 +111,15 @@ let AboutMeForm = (props) => {
                     />
                 </form>}
             {!edit && <div>
-                <div>Name: {props.profile.fullName}</div>
-                <div>About me: {props.profile.aboutMe}</div>
-                <div>ContactsVk: {props.profile.contacts.vk}</div>
-                <div>lookingForAJob: {(props.profile.lookingForAJob ? 'yes' : 'no')}</div>
-                <div>lookingForAJobDescription: {props.profile.lookingForAJobDescription}</div>
+                <div>Name: {profile.fullName}</div>
+                <div>About me: {profile.aboutMe}</div>
+                <div>ContactsVk: {profile.contacts.vk}</div>
+                <div>lookingForAJob: {(profile.lookingForAJob ? 'yes' : 'no')}</div>
+                <div>lookingForAJobDescription: {profile.lookingForAJobDescription}</div>
                 <b>Contacts:</b>
-                <div>facebook: {props.profile.contacts.facebook}</div>
-                <div>vk: {props.profile.contacts.vk}</div>
-                <div>instagram: {props.profile.contacts.instagram}</div>
+                <div>facebook: {profile.contacts.facebook}</div>
+                <div>vk: {profile.contacts.vk}</div>
+                <div>instagram: {profile.contacts.instagram}</div>
             </div>}
         </div>
     )

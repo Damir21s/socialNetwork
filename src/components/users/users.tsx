@@ -5,23 +5,25 @@ import noAvatarPicture from "./../../assets/no-avatar.png"
 import { NavLink } from "react-router-dom"
 import { Pagination } from 'antd'
 import 'antd/dist/antd.css'
-import { usersType } from "../../types/types"
-type PropsType = {
-    totalCountUsers: number,
-    users: Array<usersType>,
-    isFollowingProcces: Array<number>,
-    getUsers: (currentPage: number, currentPageSize: number )=> void,
-    unfollow: (id: number)=> void,
-    follow: (id: number)=> void,  
-}
-let Users: React.FC<PropsType> = ({totalCountUsers, users, isFollowingProcces, getUsers, unfollow, follow}) => {
+import { useDispatch, useSelector } from "react-redux"
+import { getIsFollowingProccesSelector, getTotalCountUsersSelector, getUsersSuperSelector } from "../../redux/new-selector"
+import { follow, getUsers, unfollow } from "../../redux/reducerUsers"
+let Users = () => {
+    const totalCountUsers = useSelector(getTotalCountUsersSelector) 
+    const users = useSelector(getUsersSuperSelector)
+    const isFollowingProcces = useSelector(getIsFollowingProccesSelector)
+    const dispatch = useDispatch()
+    const followProcess = (id: number) => {
+        dispatch(follow(id))
+    }
+    const unfollowProcess = (id: number) => {
+        dispatch(unfollow(id))
+    }
     const [currentPage, setCurrentPage] = useState(1);
     const [currentPageSize, setCurrentPageSize] = useState(10);
     useEffect(() =>{
-        getUsers(currentPage, currentPageSize)
-        console.log(currentPage, currentPageSize)
-    },[currentPage, currentPageSize])
-
+        dispatch(getUsers(currentPage, currentPageSize))
+    },[currentPage, currentPageSize]) 
     return (
         <div>
             <Pagination onShowSizeChange={(current, size)=>{setCurrentPageSize(size)}}  onChange={(page, pageSize)=>{setCurrentPage(page)}}
@@ -32,9 +34,9 @@ let Users: React.FC<PropsType> = ({totalCountUsers, users, isFollowingProcces, g
                 </NavLink>
                 </div>
                 <div>{u.followed ? <button disabled={isFollowingProcces.some(id => id === u.id)} onClick={() => {
-                    unfollow(u.id)
+                    unfollowProcess(u.id)
                 }}>unfollow</button> : <button disabled={isFollowingProcces.some(id => id === u.id)} onClick={() => {
-                    follow(u.id)
+                    followProcess(u.id)
                 }}>follow</button>}</div>
                 <div>{u.name}</div>
                 <div>{u.status}</div>

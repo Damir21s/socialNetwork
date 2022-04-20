@@ -6,7 +6,7 @@ import News from './components/news/news';
 import Music from './components/music/music';
 import Settings from './components/settings/settings';
 import DialogsContainer from './components/dialogs/dialogsContainer';
-import UserContainer from './components/users/userContainer';
+import { UsersPage } from './components/users/userContainer';
 import ProfileContainer from './components/profile/profileContainer';
 import HeaderContainer from './components/header/headerContainer';
 import Login from './components/login/login';
@@ -23,7 +23,7 @@ const App = () => {
             <Route path='/profile/*' element={<ProfileContainer />} /> 
             <Route path='/news' element={<News />} />
             <Route path='/music' element={<Music />} />
-            <Route path='/users' element={<UserContainer/>} />
+            <Route path='/users' element={<UsersPage/>} />
             <Route path='/settings' element={<Settings />} />
             <Route path='/login' element={<Login/>} />
           </Routes>

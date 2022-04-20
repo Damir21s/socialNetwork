@@ -1,4 +1,4 @@
-import React, { LegacyRef} from 'react';
+import React, { LegacyRef, MutableRefObject, RefObject} from 'react';
 import { postsDataType } from '../../../types/types';
 import s from './myposts.module.css';
 import Post from './post/post';
@@ -11,13 +11,12 @@ type PropsType = {
 const MyPost: React.FC<PropsType> = ({postsData, addPost, updateNewPostText, newPostText}) => {
   let postsMap = postsData.map(m => <Post messeges={m.messeges} likescount={m.likescount} />
   )
-  let newPostElement: LegacyRef<HTMLTextAreaElement> = React.createRef();
+  let newPostElement: RefObject<HTMLTextAreaElement> = React.createRef();
   let onAddPost = () => {
     addPost();
   }
   let onPostChange = () => {
-    //@ts-ignore
-    let text = newPostElement.current.value;
+    let text = newPostElement.current!.value;
     updateNewPostText(text);
   }
   return (

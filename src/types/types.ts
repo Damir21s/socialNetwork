@@ -18,12 +18,13 @@ export type photosType = {
     large: string
 }
 export type profileType = {
-    userId: number,
+    userId: string | undefined,
     lookingForAJob: boolean,
     lookingForAJobDescription: string,
     fullName: string,
     contacts: contactsType,
-    photos: photosType
+    photos: photosType,
+    aboutMe: string
 }
 export type usersType = {
     id: number,
@@ -31,4 +32,12 @@ export type usersType = {
     status: string,
     photos: photosType,
     followed: boolean
+}
+export type dialogsDataType = {
+    id: number,
+    name: string
+}
+export type messagesData = {
+    id: number,
+    messages: string
 }
