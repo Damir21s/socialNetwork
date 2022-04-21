@@ -8,7 +8,6 @@ let initialState = {
     users: [] as Array<usersType>,
     totalCountUsers: 0,
     pageSize: 5,
-    currentPage: 1,
     isFollowingProcces: [] as Array<number>,
     isFetching: true
 }
@@ -46,11 +45,6 @@ const UsersReducer = (state = initialState, action: ActionsType): initialStateTy
                 ...state,
                 totalCountUsers: action.totalCount
             }
-        case 'CURRENT_PAGE':
-            return {
-                ...state,
-                currentPage: action.numberPage
-            }
         case 'IS_FETCHING':
             return {
                 ...state,
@@ -72,17 +66,15 @@ export const actions = {
     unfollowAccess: (userId: number) => ({ type: 'UNFOLLOW', userId } as const),
     setUsers: (users: Array<usersType>) => ({ type: 'SET_USERS', users } as const),
     settotalCountUsers: (totalCount: number) => ({ type: 'SET_COUNT_USERS', totalCount } as const),
-    setcurrentPage: (numberPage: number) => ({ type: 'CURRENT_PAGE', numberPage } as const),
     toggleIsFetching: (isFetching: boolean) => ({ type: 'IS_FETCHING', isFetching } as const),
     followingProcces: (isFetching: boolean, userId: number) => ({ type: 'IS_FOLLOWING_PROCCES', isFetching, userId } as const)
 }
 
 type ThunkType = ThunkAction<void, AppReducerType, unknown, ActionsType>
-export let getUsers = (currentPage: number, pageSize: number): ThunkType =>
+export let getUsers = (search: string, onlyFriends: boolean, currentPage: number, pageSize: number): ThunkType =>
     async (dispatch) => {
-        dispatch(actions.setcurrentPage(currentPage))
         dispatch(actions.toggleIsFetching(true))
-        let data = await usersApi.getUsers(currentPage, pageSize)
+        let data = await usersApi.getUsers(search, onlyFriends, currentPage, pageSize)
         dispatch(actions.toggleIsFetching(false))
         dispatch(actions.setUsers(data.items))
         dispatch(actions.settotalCountUsers(data.totalCount))
@@ -98,7 +90,7 @@ export let follow = (userId: number): ThunkType =>
     }
 
 export let unfollow = (userId: number): ThunkType =>
-    async (dispatch: any) => {
+    async (dispatch) => {
         dispatch(actions.followingProcces(true, userId))
         let data = await usersApi.getUnFollow(userId)
         if (data.resultCode === 0) {

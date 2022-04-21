@@ -12,9 +12,6 @@ export const getTotalCountUsersSelector = (state: AppReducerType) =>{
 export const getPageSizeSelector = (state: AppReducerType) =>{
     return state.usersPage.pageSize;
 }
-export const getCurrentPageSelector = (state: AppReducerType) =>{
-    return state.usersPage.currentPage;
-}
 export const getIsFetchingSelector = (state: AppReducerType) =>{
     return state.usersPage.isFetching;
 }

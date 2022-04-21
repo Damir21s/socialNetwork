@@ -13,7 +13,7 @@ type FormikValues = {
     captcha: string
 }
 const LoginForm: React.FC<PropsType> = ({login, captcha}) => {
-    const formik: FormikProps<FormikValues> = useFormik<FormikValues>({
+    const formik = useFormik<FormikValues>({
         initialValues: {
             password: "",
             remeberMe: false,

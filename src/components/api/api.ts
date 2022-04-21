@@ -40,8 +40,8 @@ type getCaptchaUrlResType = {
     url: string
 }
 const usersApi = {
-    async getUsers(pageNumber: number, pageSize: number) {
-        return instance.get<UsersResType>(`/users?page=${pageNumber}&count=${pageSize}`).then(response => response.data)
+    async getUsers(search: string, onlyFriends: boolean, pageNumber: number, pageSize: number) {
+        return instance.get<UsersResType>(`/users?page=${pageNumber}&count=${pageSize}&term=${search}&friend=${onlyFriends}`).then(response => response.data)
     },
     async getUnFollow(userId: number) {
         return instance.delete<ResponseType>(`/follow/${userId}`).then(response => response.data)
